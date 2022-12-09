@@ -23,8 +23,7 @@ if __name__ == '__main__':
             elif validation_num == const.COLLECTOR_CPF_ERROR:
                 app_frontend.error_cpf_screen()
             else:
-                print('erro')
-                #general_error_screen()
+                general_error_screen()
         elif option == 2:
             get_stats = app_backend.collector_statistics(db_handler)
             if isinstance(get_stats, dict):

@@ -24,9 +24,7 @@ def options_screen():
     print('\t\t\t\t| 2) BUSCAR PORCENTAGEM COMPLETA DO ALBUM PARA UM            |')
     print('\t\t\t\t|    COLECIONADOR                                            |')
     print('\t\t\t\t|                                                            |')
-    print('\t\t\t\t| 3) REGISTRAR TROCA                                         |')
-    print('\t\t\t\t|                                                            |')
-    print('\t\t\t\t| 4) SAIR DA APLICACAO                                       |')
+    print('\t\t\t\t| 3) SAIR DA APLICACAO                                       |')
     print('\t\t\t\t+------------------------------------------------------------+')
 
 
@@ -57,6 +55,13 @@ def register_collector_screen():
     print('\t\t\t\t|                                                      |')
     print('\t\t\t\t+------------------------------------------------------+')
 
+def collector_stats_screen():
+    clear_screen()
+    print('\t\t\t\t+------------------------------------------------------+')
+    print('\t\t\t\t|                                                      |')
+    print('\t\t\t\t|        BUSCA ESTATISTICA DE UM COLECIONADOR          |')
+    print('\t\t\t\t|                                                      |')
+    print('\t\t\t\t+------------------------------------------------------+')
 def register_collector_success_screen():
     clear_screen()
     print('\t\t\t\t+------------------------------------------------------+')
@@ -97,3 +102,12 @@ def print_collector_stats(stats: dict):
         print('\t\t\t\t|{:^27}|{:^27}|'.format(album, stats[album]))
         print('\t\t\t\t+---------------------------+---------------------------+')
     input('Pressione <ENTER> para sair')
+
+def general_error_screen():
+    clear_screen()
+    print('\t\t\t\t+------------------------------------------------------+')
+    print('\t\t\t\t|                                                      |')
+    print('\t\t\t\t|                 ERRO NO BANCO DE DADOS               |')
+    print('\t\t\t\t|                                                      |')
+    print('\t\t\t\t+------------------------------------------------------+')
+    sleep(5)
