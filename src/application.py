@@ -25,6 +25,13 @@ if __name__ == '__main__':
             else:
                 print('erro')
                 #general_error_screen()
+        elif option == 2:
+            get_stats = app_backend.collector_statistics(db_handler)
+            if isinstance(get_stats, dict):
+                app_frontend.print_collector_stats(get_stats)
+                option = 0
+            else:
+                app_frontend.user_not_found_screen()
         if option == const.QUIT:
             app_frontend.close_application_screen()
 

@@ -82,6 +82,7 @@ class DatabaseHandler:
         
         return tuples
 
+
     def delete(self, delete_statement: str,
                condition_values: dict):
         ''' Delete a tuple from a table specified in the delete_statement,
@@ -99,9 +100,5 @@ class DatabaseHandler:
     def rollback(self):
         ''' The rollback function of the database handler '''
         with self.pool.acquire() as connection:
-            connection.rollback 
+            connection.rollback() 
 
-#db = DatabaseHandler('.env')
-#db.insert('insert into project_test (att1, att2) values (:v1, :v2)', [1, 'max'])
-#row = db.query('select att1 from project_test where att1=(:val)', [3])
-#print(len(row))

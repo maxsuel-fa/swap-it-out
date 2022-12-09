@@ -75,3 +75,25 @@ def close_application_screen():
     print('\t\t\t\t+------------------------------------------------------+')
     sleep(5)
     clear_screen()
+
+def user_not_found_screen():
+    clear_screen()
+    print('\t\t\t\t+------------------------------------------------------+')
+    print('\t\t\t\t|                                                      |')
+    print('\t\t\t\t|                 USUARIO NAO ENCONTRADO               |')
+    print('\t\t\t\t|                                                      |')
+    print('\t\t\t\t+------------------------------------------------------+')
+    sleep(5)
+
+def print_collector_stats(stats: dict):
+    clear_screen()
+    print('\t\t\t\t+-------------------------------------------------------+')
+    print('\t\t\t\t|                 ESTATISTICAS DO USUARIO               |')
+    print('\t\t\t\t+---------------------------+---------------------------+')
+    print('\t\t\t\t|       NOME DO ALBUM       |   PORCENTAGEM CONCLUIDA   | ')
+    print('\t\t\t\t+---------------------------+---------------------------+')
+    
+    for album in stats:
+        print('\t\t\t\t|{:^27}|{:^27}|'.format(album, stats[album]))
+        print('\t\t\t\t+---------------------------+---------------------------+')
+    input('Pressione <ENTER> para sair')

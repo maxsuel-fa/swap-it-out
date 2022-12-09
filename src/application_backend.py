@@ -121,4 +121,66 @@ def register_sticker_available(db_handler: DatabaseHandler) -> int:
     album = db_handler.query(sql_statement_album, 
                              dict(nome_album = input_data))
 
+def collector_statistics(db_handler: DatabaseHandler):
+    ''' Calculates the percentage of completion of 
+    all albums for a user
+
+    Parameters:
+        db_handler (DatabaseHandler) -- object to handle database operations
+
+    Return (int) -- the constant SUCCESS if the registration goes well, 
+                    or another constant indicating the specific error   
+    '''
+
+    condition_values = dict()
+
+    username = input('Entre com o username: ')
+
+    # Checking if there is a user with the entered username
+    # in the database
+
+    sql_statement = '''select username
+                            from colecionador
+                            where username = (:un)'''
+
+    has_user = len(db_handler.query(sql_statement,
+                                dict(un = username)))
     
+    if has_user: 
+        sql_statement = '''select f.id_album, a.colecao, count(*)
+                           from figurinha f join album_colecionador ac
+                               on ac.id_album = f.id_album
+                               and ac.username = (:un)
+                               join album a
+                                   on a.id_album = f.id_album
+                           where (f.cod_figurinha, f.tipo, f.id_album) not in 
+                               (select fig.cod_figurinha, fig.tipo, fig.id_album
+                                from figurinha_colecionador fc join figurinha fig
+                                    on fc.cod_figurinha = fig.cod_figurinha
+                                    and fc.id_album = fig.id_album
+                                where fc.username = (:un))
+                           group by f.id_album, a.colecao
+                           '''
+        collector_albums_stat = db_handler.query(sql_statement, 
+                                                 dict(un = username))
+        sql_statement = ''' select f.id_album, count(*) 
+                            from figurinha f
+                            group by f.id_album
+                        '''
+        general_stat = db_handler.query(sql_statement)
+
+        stats = dict()
+
+        for (id_album1, album_name, x)  in collector_albums_stat:
+            for (id_album2, y) in general_stat:
+                if id_album1 == id_album2:
+                    percent = (x/y) * 100
+                    stats[album_name] = percent
+        return stats
+    
+    else:
+        return const.ERROR_USER_NOT_FOUND
+
+
+
+

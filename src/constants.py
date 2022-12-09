@@ -1,6 +1,7 @@
 # General constants
 SUCCESS = 0
 ERROR = -1
+ERROR_USER_NOT_FOUND = 10 
 QUIT = 8
 
 # Collector insertion error constants
