@@ -37,7 +37,8 @@ class DatabaseHandler:
                                          max=pool_max,
                                          increment=0)
 
-    def insert(self, insert_statement: str, attribute_values: list):
+    def insert(self, insert_statement: str, 
+               attribute_values: dict):
         ''' Insert a tuple into the table specified in the insert_statement,  
         using the oracledb execute function as base.
         To do so, this method acquires a connection in the connection pool
@@ -49,8 +50,10 @@ class DatabaseHandler:
                                        In order to avoid SQL injections, it is better to 
                                        pass the statement as a parameter instead of 
                                        creating a statement by biding column and 
-                                       table names into a string that represents it
-            attribute_values (list) -- the list of the values to be inserted
+                                       table names into a string that represents it. Only 
+                                       values bind is made using the library, which prevents
+                                       SQLi attacks
+            attribute_values (dict) -- the list of the values to be inserted
         '''
 
         with self.pool.acquire() as connection:
@@ -59,16 +62,14 @@ class DatabaseHandler:
                 connection.commit()
 
     def query(self, query_statement: str,
-              condition_values: list=None) -> list:
+              condition_values: dict=None) -> list:
         ''' Executes a query in the database
 
         Parameters:
             query_statement (str)   -- query statement to be executed
-            condition_values (list) -- list of values to be assigned to
+            condition_values (dict) -- list of values to be assigned to
                                        each condition declared into the query
-                                       statement. The values in the list will
-                                       be assigned following the order they 
-                                       appear in the list
+                                       statement. 
         
         Return (list) -- all the tuples returned by the query 
         '''
@@ -81,3 +82,26 @@ class DatabaseHandler:
         
         return tuples
 
+    def delete(self, delete_statement: str,
+               condition_values: dict):
+        ''' Delete a tuple from a table specified in the delete_statement,
+        using the oracledb execute function as base. In pratice, this me-
+        thod works in the exactly same way as the insert method, but chan-
+        ging the name helps the code readability
+
+        Parameters:
+            delete_statement (str)  -- statement to be executed
+            condition_values (dict) -- list of values to bind to 
+                                       the statement
+        '''
+        self.insert(delete_statement, condition_values)
+
+    def rollback(self):
+        ''' The rollback function of the database handler '''
+        with self.pool.acquire() as connection:
+            connection.rollback 
+
+#db = DatabaseHandler('.env')
+#db.insert('insert into project_test (att1, att2) values (:v1, :v2)', [1, 'max'])
+#row = db.query('select att1 from project_test where att1=(:val)', [3])
+#print(len(row))

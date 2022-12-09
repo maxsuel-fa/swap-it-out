@@ -3,14 +3,11 @@ import constants as const
 import application_backend as app_backend
 import application_frontend as app_frontend
 import constants as const
-#db = DatabaseHandler('.env')
-#app_backend.register_collector([0], db)
-
 
 if __name__ == '__main__':
     db_handler = DatabaseHandler('.env')
     option = 0
-    while option != const.SAIR:
+    while option != const.QUIT:
         if not option:
             app_frontend.options_screen()
             option = int(input('Escolha uma das opcoes acima: '))
@@ -28,4 +25,7 @@ if __name__ == '__main__':
             else:
                 print('erro')
                 #general_error_screen()
+        if option == const.QUIT:
+            app_frontend.close_application_screen()
+
 
