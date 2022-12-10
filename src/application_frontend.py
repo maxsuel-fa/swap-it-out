@@ -15,7 +15,7 @@ def options_screen():
 
     clear_screen()
     print('\t\t\t\t+------------------------------------------------------------+')
-    print('\t\t\t\t|            GERENCIADOR DE TROCAS DE FIGURINHAS             |')
+    print('\t\t\t\t|            GERENCIADOR DE ALBUNS DE FIGURINHAS             |')
     print('\t\t\t\t+------------------------------------------------------------+')
     print('\t\t\t\t|                           OPCOES                           |')
     print('\t\t\t\t|                                                            |')
@@ -59,9 +59,10 @@ def collector_stats_screen():
     clear_screen()
     print('\t\t\t\t+------------------------------------------------------+')
     print('\t\t\t\t|                                                      |')
-    print('\t\t\t\t|        BUSCA ESTATISTICA DE UM COLECIONADOR          |')
+    print('\t\t\t\t|           ESTATISTICAS DE UM COLECIONADOR            |')
     print('\t\t\t\t|                                                      |')
     print('\t\t\t\t+------------------------------------------------------+')
+
 def register_collector_success_screen():
     clear_screen()
     print('\t\t\t\t+------------------------------------------------------+')
